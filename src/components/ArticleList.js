@@ -1,11 +1,12 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransitionGroup } from 'react-transition-group';
 import articles from '../data/articles.json'
-import './ArticleList.css'
 import Loading from './Loading';
 import Article from './Article';
+import './ArticleList.css';
 
-class App extends Component {
+export default class ArticleList extends Component {
 
   state = {
     articles: []
@@ -16,7 +17,7 @@ class App extends Component {
       this.setState({
         articles: articles.map((item, i) => i === 0? { ...item, isOpened: true } : {...item, isOpened: false})
       })
-    }, 3000);
+    }, 2000);
   }
 
   handleOpen = (id) => {
@@ -26,32 +27,25 @@ class App extends Component {
   }
 
   render() {
-    const {articles} = this.state
+    const { articles } = this.state;
     if (!this.state.articles.length) {
       return (
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
+          component="div"
           transitionName="opacity"
-          transitionAppearTimeout={1500}
+          transitionAppearTimeout={1000}
           transitionAppear
           transitionLeave={false}
           transitionEnter={false}>
           <Loading/>
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       )
     }
 
     return (
-      <div>
-        <ReactCSSTransitionGroup
-          transitionName="slide"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
-          transitionAppearTimeout={500}>
+      <div className="container">
           {articles.map(item => <Article key={item.id} article={item} handleOpen={() => this.handleOpen(item.id)}/>)}
-        </ReactCSSTransitionGroup>
       </div>
     );
   }
 }
-
-export default App;

@@ -1,0 +1,17 @@
+.text-enter {
+    opacity: 0.01;
+}
+
+.text-enter.text-enter-active {
+    opacity: 1;
+    transition: opacity .3s ease-in;
+}
+
+.text-leave {
+    opacity: 1;
+}
+
+.text-leave.text-leave-active {
+    opacity: 0.01;
+    transition: opacity .3s ease-in;
+}
